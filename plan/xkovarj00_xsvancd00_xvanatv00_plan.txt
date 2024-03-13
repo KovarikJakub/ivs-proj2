@@ -1,0 +1,60 @@
+Terminy:
+********
+13/03/2024 Uvodni meeting, konzultace zvoleneho technologickeho stacku, rozdeleni prace
+
+15/03/2024 Teambuilding u piva + analyza rizik
+
+17/03/2024 Vytvoreni kostry Qt projektu (snaha odhalit problemy co nejdrive)
+
+24/03/2024 Testy pro matematickou knihovnu
+
+31/03/2024 Matematicka knihovna
+
+06/04/2024 GUI
+
+07/04/2024 Revize dosavadni prace, podrobny plan zbyvajici casti prace
+
+19/04/2024 Profiling, Dokumentace, Instalatory Odinstalatory, UI Mockupy nove verze
+
+21/04/2024 Spolecne review prace, kontrolni meeting, refaktory
+
+24/04/2024 Odevzdani 
+
+08/05/2024 Individualni sepsani problemu
+
+Komunikacni kanaly:
+*******************
+    - Telefonni cisla - Pro krizove pripady 
+    - Discord - pracovne nastaveny server dedikovany projektu
+    - Messenger - pro jistotu. Precejen ho clovek pouziva casteji nez discord
+
+Prvaidla pro komunikaci:
+************************
+    - Na konci kazdeho tydne/faze/podukolu meeting na discordu, vzajemna kontrola prace
+    - Prubezne kontrolovat komunikacni kanaly - odpoved nejpozdeji tehoz dne
+    - Zakazano pracovat ci komunikovat pod vlivem omamnych latek
+    - GIT Pravidla:
+        - kazda feature ma vlastni branch
+        - nepouzivat rebase, nepouzivat force push
+        - commitovat prubezne
+
+Rozdeleni Prace: 
+****************
+xvanatv00: 
+    - Testy
+    - Mockupy
+    - Prezentace
+xsvancd00:
+    - Testy (revize po xvanatv00) 
+    - Matematicka knihovna
+    - Makefile
+    - Dokumentace
+xkovarj00: 
+    - Instalator/Odinstalator
+    - GUI
+    - Profiling
+
+Jak nahlednout to repositare
+****************************
+Pouzivame soukromy GitHub repozitar.
+Zaslali jsme pozvanku na ucet ivs.kontrola@gmail.com
