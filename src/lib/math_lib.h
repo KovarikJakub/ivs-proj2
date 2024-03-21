@@ -1,5 +1,5 @@
-#ifndef BASIC_MATH_H
-#define BASIC_MATH_H
+#ifndef MATH_LIB_H
+#define MATH_LIB_H
 
 double Add(double x, double y);
 double Sub(double x, double y);
