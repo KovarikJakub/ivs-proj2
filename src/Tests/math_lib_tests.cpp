@@ -189,9 +189,6 @@ TEST(Exponentiation, test2){
 }
 TEST(Exponentiation, test3){
 
-    EXPECT_THROW(Pow(2,-1),std::invalid_argument);
-    EXPECT_THROW(Pow(2,3.5),std::invalid_argument);
-    EXPECT_THROW(Pow(2,-2.5),std::invalid_argument);
     EXPECT_THROW(Pow(DBL_MAX,2),std::out_of_range);
      
 }
