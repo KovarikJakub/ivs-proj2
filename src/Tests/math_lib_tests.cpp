@@ -79,10 +79,10 @@ TEST(Division, test2){
 }
 TEST(Division, test3){
 
-    EXPECT_THROW(Div(1,0),std::invalid_argument)
-    EXPECT_THROW(Div(0.01,0),std::invalid_argument)
-    EXPECT_THROW(Div(0,0),std::invalid_argument)
-    EXPECT_THROW(Div(1,DBL_MAX),std::out_of_range)
+    EXPECT_THROW(Div(1,0),std::invalid_argument);
+    EXPECT_THROW(Div(0.01,0),std::invalid_argument);
+    EXPECT_THROW(Div(0,0),std::invalid_argument);
+    EXPECT_THROW(Div(1,DBL_MAX),std::out_of_range);
 
 }
 
