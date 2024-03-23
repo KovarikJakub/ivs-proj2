@@ -4,13 +4,13 @@
 using namespace ::testing;
 
 TEST(Addition, test1){
-
+    
     EXPECT_EQ(Add(1,1),2);
     EXPECT_EQ(Add(-2,1),-1);
     EXPECT_EQ(Add(1,-2),-1);
     EXPECT_EQ(Add(-1,-1),-2);
     EXPECT_EQ(Add(0,0),0);
-    
+
 }
 TEST(Addition, test2){
 
@@ -25,11 +25,9 @@ TEST(Addition, test3){
 
     EXPECT_THROW(Add(DBL_MAX,1),std::out_of_range);
     EXPECT_THROW(Add(1.5,DBL_MAX),std::out_of_range);
-
     EXPECT_EQ(Add(DBL_MAX,0),DBL_MAX);
-   
-}
 
+}
 TEST(Subtraction, test1){
 
     EXPECT_EQ(Sub(1,1),0);
@@ -46,17 +44,15 @@ TEST(Subtraction, test2){
     EXPECT_EQ(Sub(1.9,-2),2.9);
     EXPECT_EQ(Sub(-1.5,-1.27),-0.23);
     EXPECT_EQ(Sub(0,0.001),-0.001);
-
+    
 }
 TEST(Subtraction, test3){
-
+    
     EXPECT_THROW(Sub(DBL_MIN,1),std::out_of_range);
     EXPECT_THROW(Sub(DBL_MIN,0.5),std::out_of_range);
-
     EXPECT_EQ(Sub(DBL_MIN,0),DBL_MIN);
-   
-}
 
+}
 TEST(Division, test1){
 
     EXPECT_EQ(Div(1,1),1);
@@ -85,7 +81,6 @@ TEST(Division, test3){
     EXPECT_THROW(Div(1,DBL_MAX),std::out_of_range);
 
 }
-
 TEST(Multiplication, test1){
 
     EXPECT_EQ(Mul(1,1),1);
@@ -106,17 +101,15 @@ TEST(Multiplication, test2){
     EXPECT_EQ(Mul(-6.5,3),-19.5);
     EXPECT_EQ(Mul(-0.5,-5),2.5);
     EXPECT_EQ(Mul(0,0.01),0);
-  
+
 }
 TEST(Multiplication, test3){
 
     EXPECT_THROW(Mul(DBL_MAX,2),std::out_of_range);
     EXPECT_THROW(Mul(-3.5,DBL_MAX),std::out_of_range);
-
     EXPECT_EQ(Mul(DBL_MAX,1),DBL_MAX);
 
 }
-
 TEST(Factorial, test1){
 
     EXPECT_EQ(Factorial(0),1);
@@ -134,7 +127,6 @@ TEST(Factorial, test2){
     EXPECT_THROW(Factorial(21),std::out_of_range);
   
 }
-
 TEST(Root, test1){
 
     EXPECT_EQ(Root(4,1),4);
@@ -165,8 +157,6 @@ TEST(Root, test3){
     EXPECT_THROW(Root(-4.2,-2),std::invalid_argument);
   
 }
-
-
 TEST(Exponentiation, test1){
 
     EXPECT_EQ(Pow(0,0),1);
@@ -192,7 +182,6 @@ TEST(Exponentiation, test3){
     EXPECT_THROW(Pow(DBL_MAX,2),std::out_of_range);
      
 }
-
 TEST(Absolute_value, test1){
 
     EXPECT_EQ(Abs(1),1);
