@@ -1,7 +1,5 @@
-#include "gtest\gtest.h"
-#include "gmock\gmock.h"
+#include <gtest/gtest.h>
 #include "math_lib.h"
-#include "float.h"
 
 using namespace ::testing;
 
