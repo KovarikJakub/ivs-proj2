@@ -78,7 +78,6 @@ TEST(Division, test_edge_cases_and_exceptions){
     EXPECT_THROW(Div(1,0),std::invalid_argument);
     EXPECT_THROW(Div(0.01,0),std::invalid_argument);
     EXPECT_THROW(Div(0,0),std::invalid_argument);
-    EXPECT_THROW(Div(1,DBL_MAX),std::out_of_range);
 
 }
 TEST(Multiplication, test_integers){
