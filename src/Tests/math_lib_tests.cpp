@@ -27,8 +27,8 @@ TEST(Addition, test_decimal){
 }
 TEST(Addition, test_edge_cases){
 
-    EXPECT_ANY_THROW(Add(DBL_MAX,1));
-    EXPECT_ANY_THROW(Add(1.5,DBL_MAX));
+    EXPECT_THROW(Add(DBL_MAX,1), std::out_of_range);
+    EXPECT_THROW(Add(1.5,DBL_MAX),std::out_of_range);
     EXPECT_DOUBLE_NEAR(Add(DBL_MAX,0),DBL_MAX);
 
 }
