@@ -23,6 +23,13 @@ TEST(Addition, test_decimal){
     EXPECT_DOUBLE_NEAR(Add(1.9,-2),-0.1);
     EXPECT_DOUBLE_NEAR(Add(-1.5,-1.27),-2.77);
     EXPECT_DOUBLE_NEAR(Add(0,0.001),0.001);
+/*
+    EXPECT_DOUBLE_EQ(Add(1.5,1.6),3.1);
+    EXPECT_DOUBLE_EQ(Add(-2.1,1.1),-1.0);
+    EXPECT_DOUBLE_EQ(Add(1.9,-2),-0.1);
+    EXPECT_DOUBLE_EQ(Add(-1.5,-1.27),-2.77);
+    EXPECT_DOUBLE_EQ(Add(0,0.001),0.001);
+*/
 
 }
 TEST(Addition, test_edge_cases){
@@ -68,13 +75,14 @@ TEST(Division, test_integers){
 
 }
 TEST(Division, test_decimal){
-
+    
     EXPECT_DOUBLE_NEAR(Div(1.5,1.5),1);
     EXPECT_DOUBLE_NEAR(Div(5,2.5),2);
     EXPECT_DOUBLE_NEAR(Div(7,-3.5),-2);
     EXPECT_DOUBLE_NEAR(Div(-7,3.5),-2);
     EXPECT_DOUBLE_NEAR(Div(-9,-6),1.5);
     EXPECT_DOUBLE_NEAR(Div(0,-1.42),0);
+    
 
 }
 TEST(Division, test_edge_cases_and_exceptions){
