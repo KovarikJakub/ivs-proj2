@@ -21,38 +21,32 @@ double Add(double x, double y)
 double Sub(double x, double y)
 {
     /*
-    if((x > DBL_MAX) || (y > DBL_MAX) || ((x-y) < DBL_MIN) || (x < DBL_MIN) || (y < DBL_MIN))
+    if (x < (DBL_MIN + std::abs(y)))                      //Porusi testy na int, dec, ale testy na hranicni hodnoty projdou
     {
-        throw std::out_of_range("Error: Value is out of 'DBL LIMIT'!");
-    } else
-    {
-        return (x - y);
+        throw std::out_of_range("Underflow occurred");
     }
-   
-
-    const bool underflow = (x < 0 && std::abs(y) >= DBL_MAX + std::abs(x));
-    const bool overflow  = (x > 0 && y >= DBL_MAX + std::abs(x));
-    if ((y != 0) && (underflow || overflow))
-    {
-        throw std::out_of_range("Overflow occurred");
-    }
-
-    return x - y;
-
     */
 
+    return Add(x, -y); 
 }
 double Div(double x, double y)
 {
-    if((std::abs(x) > DBL_MAX) || (std::abs(y) > DBL_MAX))
-    {
-        throw std::out_of_range("Error: Value is out of 'DBL LIMIT'!");
-    } else if(y == 0)
+    double result = x / y;
+    if(y == 0)
     {
         throw std::invalid_argument("Error: Divider can not be zero value!");
-    }else
+    }
+    else if(x == DBL_MIN && y == -1)
     {
-        return (x / y);
+        throw std::out_of_range("Error: Overflow occurred!");
+    }
+    else if(std::isinf(result) || std::isnan(result))
+    {
+        throw std::out_of_range("Error: Overflow occurred!");
+    }
+    else
+    {
+        return result;
     }
 }
 double Mul(double x, double y)
