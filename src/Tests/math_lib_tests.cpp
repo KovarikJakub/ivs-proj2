@@ -45,7 +45,7 @@ TEST(Subtraction, test_integers){
     EXPECT_DOUBLE_NEAR(Sub(-2,1),-3);
     EXPECT_DOUBLE_NEAR(Sub(1,-2),3);
     EXPECT_DOUBLE_NEAR(Sub(-1,-1),0);
-    EXPECT_DOUBLE_NEAR(Sub(0,0),0);
+   EXPECT_DOUBLE_NEAR(Sub(0,0),0);
 
 }
 TEST(Subtraction, test_decimal){
