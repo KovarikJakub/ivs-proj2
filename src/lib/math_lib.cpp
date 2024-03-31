@@ -20,12 +20,17 @@ double Add(double x, double y)
 }
 double Sub(double x, double y)
 {
-    /*
+    
+   /*
     if (x < (DBL_MIN + std::abs(y)))                      //Porusi testy na int, dec, ale testy na hranicni hodnoty projdou
     {
         throw std::out_of_range("Underflow occurred");
     }
     */
+ if (std::abs(x - y) < std::numeric_limits<double>::epsilon() * std::abs(x)) {
+    throw std::out_of_range("Underflow occurred");
+}
+    
 
     return Add(x, -y); 
 }
@@ -62,32 +67,32 @@ double Mul(double x, double y)
 }
 unsigned long long  Factorial(unsigned int x)
 {
-    unsigned long long result;
-
-    if (x == 0 || x == 1) 
+    if(x <= 1)
     {
         return 1;
-    } 
-    else 
-    {
-        result = x * Factorial(x - 1);
-        if (result / x != Factorial(x - 1)) 
-        {
-            throw std::out_of_range( "Error: Overflow occurred!");
-        }
-        return result;
     }
+    if(x >= 21)
+    {
+        throw std::out_of_range("Error: Factorial of a number larger than 21 exceeds unsigned long long range");
+    }
+
+    return x * Factorial(x - 1);
+    
 }
 
 
 double Root(double x, unsigned int y)
 {
+    if(y == 0)
+    {
+        throw std::invalid_argument("Error: Root can not be zero!");
+    }
     if(((y % 2) == 0) && (x < 0))
     {
         throw std::invalid_argument("Error: An even root can not root a negative number!");
     }else 
     {
-        return std::pow(x, 1.0/y);
+        return std::pow(std::abs(x), 1.0 / y) * (x < 0 ? -1 : 1);
     }
 }
 
