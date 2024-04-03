@@ -20,17 +20,10 @@ double Add(double x, double y)
 }
 double Sub(double x, double y)
 {
-    
-   /*
-    if (x < (DBL_MIN + std::abs(y)))                      //Porusi testy na int, dec, ale testy na hranicni hodnoty projdou
+    if (x < (-DBL_MAX + std::abs(y)))                      
     {
         throw std::out_of_range("Underflow occurred");
     }
-    */
- if (std::abs(x - y) < std::numeric_limits<double>::epsilon() * std::abs(x)) {
-    throw std::out_of_range("Underflow occurred");
-}
-    
 
     return Add(x, -y); 
 }
@@ -41,7 +34,7 @@ double Div(double x, double y)
     {
         throw std::invalid_argument("Error: Divider can not be zero value!");
     }
-    else if(x == DBL_MIN && y == -1)
+    else if(x == -DBL_MAX && y == -1)
     {
         throw std::out_of_range("Error: Overflow occurred!");
     }
@@ -49,10 +42,9 @@ double Div(double x, double y)
     {
         throw std::out_of_range("Error: Overflow occurred!");
     }
-    else
-    {
-        return result;
-    }
+ 
+    return result;
+    
 }
 double Mul(double x, double y)
 {
@@ -60,10 +52,13 @@ double Mul(double x, double y)
     {
         throw std::out_of_range("Error: Overflow occurred!");
     }
-    else
+    else if(x == -DBL_MAX && y == -1)
     {
-        return (x * y);
+        throw std::out_of_range("Error: Overflow occurred!");
     }
+
+    return (x * y);
+    
 }
 unsigned long long  Factorial(unsigned int x)
 {
@@ -77,23 +72,25 @@ unsigned long long  Factorial(unsigned int x)
     }
 
     return x * Factorial(x - 1);
-    
 }
-
 
 double Root(double x, unsigned int y)
 {
-    if(y == 0)
+    if(y < 0)
+    {
+        throw std::invalid_argument("Error: Root can not be a negative number!");
+    }
+    else if(y == 0)
     {
         throw std::invalid_argument("Error: Root can not be zero!");
     }
     if(((y % 2) == 0) && (x < 0))
     {
         throw std::invalid_argument("Error: An even root can not root a negative number!");
-    }else 
-    {
-        return std::pow(std::abs(x), 1.0 / y) * (x < 0 ? -1 : 1);
     }
+
+    return std::pow(std::abs(x), 1.0 / y) * (x < 0 ? -1 : 1);
+    
 }
 
 double Pow(double x, unsigned int y)
@@ -107,6 +104,7 @@ double Pow(double x, unsigned int y)
     
     return result;
 }
+
 double Abs(double x)
 {
     return std::abs(x);
