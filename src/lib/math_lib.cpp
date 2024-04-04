@@ -52,10 +52,6 @@ double Mul(double x, double y)
     {
         throw std::out_of_range("Error: Overflow occurred!");
     }
-    else if(x == -DBL_MAX && y == -1)
-    {
-        throw std::out_of_range("Error: Overflow occurred!");
-    }
 
     return (x * y);
     
