@@ -60,18 +60,19 @@ double Mul(double x, double y)
     return (x * y);
     
 }
-unsigned long long  Factorial(unsigned int x)
+unsigned long long Factorial(unsigned int x)
 {
-    if(x <= 1)
-    {
-        return 1;
-    }
     if(x >= 21)
     {
         throw std::out_of_range("Error: Factorial of a number larger than 21 exceeds unsigned long long range");
     }
 
-    return x * Factorial(x - 1);
+    unsigned long long result = 1;
+    for(int i = 1; i <= x; ++i)
+    {
+        result *= i;
+    }
+    return result;
 }
 
 double Root(double x, unsigned int y)
