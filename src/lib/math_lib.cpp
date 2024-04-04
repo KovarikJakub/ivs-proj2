@@ -6,7 +6,6 @@
 #include <cmath>
 #include <cerrno>
 
-
 double Add(double x, double y)
 { 
     const bool underflow = (x < 0 && std::abs(y) >= DBL_MAX - std::abs(x));
@@ -18,10 +17,12 @@ double Add(double x, double y)
 
     return x + y;
 }
+
 double Sub(double x, double y)
 {
     return Add(x, -y); 
 }
+
 double Div(double x, double y)
 {
     double result = x / y;
@@ -37,6 +38,7 @@ double Div(double x, double y)
     return result;
     
 }
+
 double Mul(double x, double y)
 {
     if(std::abs(x) > (DBL_MAX / std::abs(y)))
@@ -47,6 +49,7 @@ double Mul(double x, double y)
     return (x * y);
     
 }
+
 unsigned long long Factorial(unsigned int x)
 {
     if(x >= 21)
@@ -74,7 +77,6 @@ double Root(double x, unsigned int y)
     }
 
     return std::pow(std::abs(x), 1.0 / y) * (x < 0 ? -1 : 1);
-    
 }
 
 double Pow(double x, unsigned int y)
