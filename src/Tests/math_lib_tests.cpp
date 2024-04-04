@@ -24,7 +24,6 @@ TEST(Addition, test_decimal){
     EXPECT_DOUBLE_NEAR(Add(-1.5,-1.27),-2.77);
     EXPECT_DOUBLE_NEAR(Add(0,0.001),0.001);
 
-
 }
 TEST(Addition, test_edge_cases){
 
@@ -76,7 +75,6 @@ TEST(Division, test_decimal){
     EXPECT_DOUBLE_NEAR(Div(-7,3.5),-2);
     EXPECT_DOUBLE_NEAR(Div(-9,-6),1.5);
     EXPECT_DOUBLE_NEAR(Div(0,-1.42),0);
-    
 
 }
 TEST(Division, test_edge_cases_and_exceptions){
@@ -156,6 +154,7 @@ TEST(Root, test_exceptions){
     EXPECT_THROW(Root(4,0),std::invalid_argument);
     EXPECT_THROW(Root(-4,2),std::invalid_argument);
     EXPECT_THROW(Root(-4,-2),std::invalid_argument);
+    
 }
 TEST(Exponentiation, test_integers){
 
