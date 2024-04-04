@@ -20,11 +20,6 @@ double Add(double x, double y)
 }
 double Sub(double x, double y)
 {
-    if (x < (-DBL_MAX + std::abs(y)))                      
-    {
-        throw std::out_of_range("Underflow occurred");
-    }
-
     return Add(x, -y); 
 }
 double Div(double x, double y)
