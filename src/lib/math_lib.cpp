@@ -77,11 +77,7 @@ unsigned long long Factorial(unsigned int x)
 
 double Root(double x, unsigned int y)
 {
-    if(y < 0)
-    {
-        throw std::invalid_argument("Error: Root can not be a negative number!");
-    }
-    else if(y == 0)
+    if(y == 0)
     {
         throw std::invalid_argument("Error: Root can not be zero!");
     }
