@@ -29,10 +29,6 @@ double Div(double x, double y)
     {
         throw std::invalid_argument("Error: Divider can not be zero value!");
     }
-    else if(x == -DBL_MAX && y == -1)
-    {
-        throw std::out_of_range("Error: Overflow occurred!");
-    }
     else if(std::isinf(result) || std::isnan(result))
     {
         throw std::out_of_range("Error: Overflow occurred!");
