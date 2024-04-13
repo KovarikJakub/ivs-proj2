@@ -30,7 +30,7 @@ public:
     }
 
     /**
-     * @brief Calculate the standard deviation of the data stream.
+     * @brief Calculate the standard deviation from data added to the stream.
      * @return The standard deviation.
      */
     inline double GetStandardDeviation()
@@ -40,8 +40,8 @@ public:
 
 private:
     unsigned long n; ///< Number of data points.
-    double mean;     ///< Mean of the data points.
-    double M2;       ///< Sum of squared differences from the mean.
+    double mean;     ///< Accumulated mean of the data points.
+    double M2;       ///< Accumulated sum of squared differences from the mean.
 };
 
 /**
