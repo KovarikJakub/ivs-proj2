@@ -13,6 +13,8 @@ add_executable(
   deviation.cpp
 )
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pg")
+
 target_link_libraries(
     deviation
     math_lib
