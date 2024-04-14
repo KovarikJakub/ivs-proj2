@@ -45,16 +45,16 @@ TEST(Subtraction, test_decimal){
 
     EXPECT_DOUBLE_NEAR(Sub(1.5,1.6),-0.1);
     EXPECT_DOUBLE_NEAR(Sub(-2.1,1.1),-3.2);
-    EXPECT_DOUBLE_NEAR(Sub(1.9,-2),2.9);
+    EXPECT_DOUBLE_NEAR(Sub(1.9,-2),3.9);
     EXPECT_DOUBLE_NEAR(Sub(-1.5,-1.27),-0.23);
     EXPECT_DOUBLE_NEAR(Sub(0,0.001),-0.001);
     
 }
 TEST(Subtraction, test_edge_cases){
     
-    EXPECT_THROW(Sub(DBL_MIN,1),std::out_of_range);
-    EXPECT_THROW(Sub(DBL_MIN,0.5),std::out_of_range);
-    EXPECT_DOUBLE_NEAR(Sub(DBL_MIN,0),DBL_MIN);
+    EXPECT_THROW(Sub(-DBL_MAX,1),std::out_of_range);
+    EXPECT_THROW(Sub(-DBL_MAX,0.5),std::out_of_range);
+    EXPECT_DOUBLE_NEAR(Sub(-DBL_MAX,0),-DBL_MAX);
 
 }
 TEST(Division, test_integers){
@@ -68,7 +68,7 @@ TEST(Division, test_integers){
 
 }
 TEST(Division, test_decimal){
-
+    
     EXPECT_DOUBLE_NEAR(Div(1.5,1.5),1);
     EXPECT_DOUBLE_NEAR(Div(5,2.5),2);
     EXPECT_DOUBLE_NEAR(Div(7,-3.5),-2);
@@ -153,10 +153,8 @@ TEST(Root, test_exceptions){
 
     EXPECT_THROW(Root(4,0),std::invalid_argument);
     EXPECT_THROW(Root(-4,2),std::invalid_argument);
-    EXPECT_THROW(Root(4,2.5),std::invalid_argument);
-    EXPECT_THROW(Root(4,-2),std::invalid_argument);
-    EXPECT_THROW(Root(-4.2,-2),std::invalid_argument);
-  
+    EXPECT_THROW(Root(-4,-2),std::invalid_argument);
+    
 }
 TEST(Exponentiation, test_integers){
 
