@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <limits>
-#include <cmath>
+#include "math_lib.h"
 
 /**
  * @class DeviationDataStream
@@ -23,10 +23,10 @@ public:
     inline void AddDataPoint(int x)
     {
         n++;
-        double delta = x - mean;
-        mean += delta / n;
-        double delta2 = x - mean;
-        M2 += delta * delta2;
+        double delta = Sub(x, mean);
+        mean += Div(delta, n);
+        double delta2 = Sub(x, mean);
+        M2 += Mul(delta, delta2);
     }
 
     /**
@@ -35,7 +35,7 @@ public:
      */
     inline double GetStandardDeviation()
     {
-        return std::sqrt(M2 / n);
+        return Root(M2 / n, 2);
     }
 
 private:
@@ -61,6 +61,7 @@ int main()
         deviationDataStream.AddDataPoint(inputNum);
     }
 
+    // if end of the stdin file wasnt reached, consider it as an error in the input sequence
     if(!std::cin.eof())
     {
         std::cerr << "Error: Invalid input sequence!" << std::endl;
