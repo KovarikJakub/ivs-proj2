@@ -2,6 +2,12 @@
 # ----------------------------------------------------------------------------
 build*/
 
+# Ignore all Makefiles
+Makefile
+
+# Except those in src folder
+!src/Makefile
+
 # AUTOGEN:
 *~
 *.autosave
@@ -25,7 +31,6 @@ tags
 .DS_Store
 .directory
 *.debug
-Makefile*
 *.prl
 *.app
 moc_*.cpp
