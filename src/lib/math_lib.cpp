@@ -1,5 +1,5 @@
 // $Authors:     David Švancer <xsvancd00@stud.fit.vutbr.cz>
-//               Vít Vaňatka    <xvanatv0000@stud.fit.vutbr.cz>
+//               Vít Vaňatka    <xvanatv00@stud.fit.vutbr.cz>
 //               Jakub Kovařík   <xkovarj00@stud.fit.vutbr.cz>
 //============================================================================//
 /**
