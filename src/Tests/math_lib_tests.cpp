@@ -1,3 +1,15 @@
+// $Authors:     David Švancer <xsvancd00@stud.fit.vutbr.cz>
+//               Vít Vaňatka    <xvanatv0000@stud.fit.vutbr.cz>
+//               Jakub Kovařík   <xkovarj00@stud.fit.vutbr.cz>
+//============================================================================//
+/**
+ * @file math_lib.tests.cpp
+ * @author David Švancer
+ * @author Vít Vaňatka
+ * @author Jakub Kovařík
+ *
+ * @brief Google test for math_lib.
+ */
 #include <gtest/gtest.h>
 #include "math_lib.h"
 

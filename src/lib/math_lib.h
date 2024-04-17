@@ -3,7 +3,7 @@
 //               Jakub Kovařík   <xkovarj00@stud.fit.vutbr.cz>
 //============================================================================//
 /**
- * @file math_lib.cpp
+ * @file math_lib.h
  * @author David Švancer
  * @author Vít Vaňatka
  * @author Jakub Kovařík
