@@ -52,7 +52,7 @@ PKG_CONFIG_URL := https://pkg-config.freedesktop.org/releases/pkg-config-0.29.2.
 
 .PHONY: all pack clean test doc run profile gtest_download
 
-all: pkg_config_install $(TEST_EXEC) $(MAIN_EXEC) 
+all: $(TEST_EXEC) $(MAIN_EXEC) 
 
 # Compile rule for main executable
 $(MAIN_EXEC): $(ALL_OBJ)
@@ -65,27 +65,19 @@ $(TEST_EXEC): $(ALL_OBJ)
 	$(CC) $(CC_FLAGS) -o $@ $^ $(QT_LIBS)
 
 run:
-
+	cd $(CALCULATOR_SRCDIR) && ./calculator
 #profile:
 #	$(CC) -o profiling $(wildcard src/*.cpp) $(wildcard src/libs/*.cpp)
 #	./profiling
 
-profile: $(EXECUTABLE)
-	./$(EXECUTABLE)
+profile: $()
+	./$()
 
 
 #	$(CC) -o profiling $(filter-out Tests/%,$(wildcard *.cpp)) && ./profiling
 	
 test: $(TEST_EXEC)
 	./$(TEST_EXEC)
-
-gtest_download:
-	@if [ ! -d "$(GTEST_DIR)" ]; then \
-		if [ ! -f "$(GTEST_DIR).tar.gz" ]; then \
-			wget $(GTEST_URL); \
-		fi; \
-		tar xf $(GTEST_DIR).tar.gz; \
-	fi
 
 pack:
 
@@ -118,20 +110,39 @@ $(BUILDDIR)/Tests/%.o: $(TEST_SRCDIR)/%.cpp
 	$(CC) $(CC_FLAGS) $(QTFLAGS) -c -o $@ $<
 
 
-ifeq ($(PKG_CONFIG),)
-	$(info pkg-config is not available, downloading and installing...)
-	PKG_CONFIG_VERSION := 0.29.2
-	PKG_CONFIG_URL := https://pkg-config.freedesktop.org/releases/pkg-config-$(PKG_CONFIG_VERSION).tar.gz
-	PKG_CONFIG_TAR := pkg-config-$(PKG_CONFIG_VERSION).tar.gz
+second: 
+	cd $(CALCULATOR_SRCDIR) && cmake . && make 
 
-pkg_config_install:
-	wget $(PKG_CONFIG_URL)
-	tar -xzvf $(PKG_CONFIG_TAR)
-	cd pkg-config-$(PKG_CONFIG_VERSION) && \
-	./configure --with-internal-glib && \
-	make && \
-	sudo make install && \
-	cd .. && \
-	rm -rf pkg-config-$(PKG_CONFIG_VERSION) $(PKG_CONFIG_TAR)
-endif
+install: gtest_download QT_libs
+
+gtest_download:
+	@if [ ! -d "$(GTEST_DIR)" ]; then \
+		if [ ! -f "$(GTEST_DIR).tar.gz" ]; then \
+			wget $(GTEST_URL); \
+		fi; \
+		tar xf $(GTEST_DIR).tar.gz; \
+	fi
+
+
+
+#	cd $(TEST_SRCDIR)
+#	cmake -S . -B build
+qtest_download2:
+	mkdir -p $(TEST_SRCDIR)/build
+	cd $(TEST_SRCDIR)/build && cmake ..
+
+
+test2:
+	cmake --build $(TEST_SRCDIR)/build
+	cd $(TEST_SRCDIR)/build && ctest
+#	cmake --build build
+#	cd build && ctest
+
+QT_libs:
+#for REDHOT
+	sudo dnf install -y qt-devel  
+#for Ubuntu   
+#	sudo apt-get install qtbase5-dev qt5-default  
+#	sudo apt-get install qtbase6-dev qt6-default
+
 
