@@ -81,16 +81,12 @@ test: $(TEST_EXEC)
 
 pack:
 
-doc: $(DOXYFILE)
-	doxygen $(DOXYFILE)
+doc: Doxyfile
+	rm -rf ../doc
+	mkdir ../doc
+	doxygen  $(DOXYFILE)
+#	mv html/ ../doc
 
-$(DOXYFILE): $(FILES_WITH_DOXYGEN_COMMENTS)
-	@if [ ! -f "$(DOXYFILE)" ]; then \
-		echo "Doxyfile not found. Generating one..."; \
-		doxygen -g $(DOXYFILE); \
-		echo "INPUT += $(SRC_DIRS)" >> $(DOXYFILE); \
-		echo "FILE_PATTERNS += *.cpp *.h" >> $(DOXYFILE); \
-	fi
 
 
 
@@ -140,7 +136,10 @@ test2:
 
 QT_libs:
 #for REDHOT
-	sudo dnf install -y qt-devel  
+	sudo dnf install -y qt-devel
+#	sudo dnf install qt5-devel
+	sudo dnf install qt5-qtbase-devel
+#	sudo dnf install qt6-devel   
 #for Ubuntu   
 #	sudo apt-get install qtbase5-dev qt5-default  
 #	sudo apt-get install qtbase6-dev qt6-default
