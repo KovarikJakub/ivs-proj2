@@ -23,6 +23,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(Calculator
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
+        ../lib/math_lib.h
+        ../lib/math_lib.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET Calculator APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
