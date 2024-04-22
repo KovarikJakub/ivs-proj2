@@ -16,9 +16,18 @@ enum Operation
     NOP
 };
 
+enum OpResultCode
+{
+    ERR_INV_INPUT,
+    ERR_ZERO_DIV,
+    ERR_OVERFLOW,
+    OK,
+};
+
 double calcValue = 0;
 
 bool clearDisplayOnNextDigitPress = false;
+bool areButtonsLockedAfterError = false;
 
 Operation activeOperation = NOP;
 
@@ -27,9 +36,11 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->lineEdit_Display->setText(QString::number(calcValue));
+    ui->lineEdit_Displayy->setText(QString::number(calcValue));
     ui->label_preview->clear();
 
+
+    // digit buttons
     QPushButton* digitButtons[10];
     for(int i = 0; i < 10; ++i)
     {
@@ -37,6 +48,7 @@ MainWindow::MainWindow(QWidget *parent)
         digitButtons[i] = MainWindow::findChild<QPushButton*>(btnName);
         connect(digitButtons[i], SIGNAL(released()), this, SLOT(DigitPressed()));
     }
+    connect(ui->btn_digit000, SIGNAL(released()), this, SLOT(DigitPressed()));
 
     // binary ops
     connect(ui->btn_add, SIGNAL(released()),  this, SLOT(BinaryOperationPressed()));
@@ -58,11 +70,27 @@ MainWindow::MainWindow(QWidget *parent)
 
     // clear
     connect(ui->btn_clear, SIGNAL(released()), this, SLOT(ClearButtonPressed()));
+
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void SetOperationButtonsStateAfterError(Ui::MainWindow *ui, bool enabled)
+{
+    ui->btn_abs->setEnabled(enabled);
+    ui->btn_fact->setEnabled(enabled);
+    ui->btn_pow->setEnabled(enabled);
+    ui->btn_comma->setEnabled(enabled);
+    ui->btn_equals->setEnabled(enabled);
+    ui->btn_div->setEnabled(enabled);
+    ui->btn_sub->setEnabled(enabled);
+    ui->btn_mul->setEnabled(enabled);
+    ui->btn_add->setEnabled(enabled);
+    ui->btn_root->setEnabled(enabled);
+    ui->btn_digit000->setEnabled(enabled);
 }
 
 void MainWindow::DigitPressed()
@@ -72,33 +100,33 @@ void MainWindow::DigitPressed()
     // if the first operand is being typed, clear the preview label and display
     if(clearDisplayOnNextDigitPress)
     {
-        ui->lineEdit_Display->setText("0");
+        ui->lineEdit_Displayy->setText("0");
         ui->label_preview->clear();
         clearDisplayOnNextDigitPress = false;
     }
 
+    if(areButtonsLockedAfterError)
+    {
+        SetOperationButtonsStateAfterError(ui, true);
+    }
+
     QString buttonValue = buttonSender->text();
-    QString displayValue = ui->lineEdit_Display->text();
+    QString displayValue = ui->lineEdit_Displayy->text();
     double displayValueDbl = displayValue.toDouble();
 
     // if theres a zero in the display, override it, othewise, append digits
     if( displayValueDbl == 0 || displayValueDbl == 0.0)
     {
-        ui->lineEdit_Display->setText(buttonValue);
+        ui->lineEdit_Displayy->setText(buttonValue);
     }
     else // append
     {
         QString newValue = displayValue + buttonValue;
         double newValueDbl = newValue.toDouble();
 
-        ui->lineEdit_Display->setText(QString::number(newValueDbl, 'g', 16));
+        ui->lineEdit_Displayy->setText(QString::number(newValueDbl, 'g', 16));
     }
 }
-
-//void MainWindow::CommaButtonPressed()
-//{
-//
-//}
 
 Operation GetOperationType(QPushButton* button)
 {
@@ -172,7 +200,6 @@ void AppendLastOperandToPreviewLabel(Ui::MainWindow *ui, const QString& valueToA
     ui->label_preview->setText(newPreview);
 }
 
-
 void MainWindow::BinaryOperationPressed()
 {
     QPushButton *buttonSender = (QPushButton*)sender();
@@ -193,13 +220,13 @@ void MainWindow::BinaryOperationPressed()
         return;
     }
 
-    QString displayValue = ui->lineEdit_Display->text();
+    QString displayValue = ui->lineEdit_Displayy->text();
     calcValue  = displayValue.toDouble();
 
     UpdatePreviewLabel(ui);
 
     // clear the display
-    ui->lineEdit_Display->clear();
+    ui->lineEdit_Displayy->clear();
 }
 
 void UpdatePreviewAfterUnaryExpression(Ui::MainWindow *ui, Operation operation, const QString& newValue)
@@ -215,27 +242,60 @@ void UpdatePreviewAfterUnaryExpression(Ui::MainWindow *ui, Operation operation, 
     ui->label_preview->setText(newPreview);
 }
 
+void HandleErrorState(Ui::MainWindow *ui, OpResultCode resCode)
+{
+    QString errorMsg;
+    switch(resCode){
+    case ERR_INV_INPUT: errorMsg = "Invalid Input"; break;
+    case ERR_OVERFLOW: errorMsg = "Overflow"; break;
+    case ERR_ZERO_DIV: errorMsg = "Can't divide by 0"; break;
+    default:break;
+    }
+
+    ui->lineEdit_Displayy->setText(errorMsg);
+    SetOperationButtonsStateAfterError(ui,false);
+    areButtonsLockedAfterError = true;
+    ui->label_preview->clear();
+}
+
 void MainWindow::UnaryOperationPressed()
 {
     QPushButton *buttonSender = (QPushButton*)sender();
     Operation selectedOperation = GetOperationType(buttonSender);
 
 
-    QString oldDisplayValue = ui->lineEdit_Display->text();
+    QString oldDisplayValue = ui->lineEdit_Displayy->text();
     double oldDisplayValueDbl = oldDisplayValue.toDouble();
 
     double ans = 0;
+    OpResultCode resCode = OK;
+
     // perform the operation instantly
     switch(selectedOperation)
     {
-    case FACT: ans = Factorial(oldDisplayValueDbl);  break;
-    case ABS:  ans = Abs(oldDisplayValueDbl); break;
+    case FACT:
+        try{
+            ans = Factorial(oldDisplayValueDbl);
+        } catch (std::exception ex){
+            resCode = ERR_OVERFLOW;
+        }
+        break;
+    case ABS:
+        ans = Abs(oldDisplayValueDbl);
+        break;
     default: return;
+    }
+
+
+    if(resCode != OK)
+    {
+        HandleErrorState(ui, resCode);
+        return;
     }
 
     UpdatePreviewAfterUnaryExpression(ui, selectedOperation, oldDisplayValue);
     clearDisplayOnNextDigitPress = true;
-    ui->lineEdit_Display->setText(QString::number(ans));
+    ui->lineEdit_Displayy->setText(QString::number(ans));
 }
 
 
@@ -247,20 +307,65 @@ void MainWindow::EqualButtonPressed()
     }
 
     double ans = 0;
-    QString displayValue = ui->lineEdit_Display->text();
+    QString displayValue = ui->lineEdit_Displayy->text();
     double displayValueDbl = displayValue.toDouble();
+    OpResultCode resCode = OK;
 
     switch(activeOperation)
     {
-    case ADD: ans = Add(calcValue,displayValueDbl); break;
-    case SUB: ans = Sub(calcValue,displayValueDbl); break;
-    case DIV: ans = Div(calcValue,displayValueDbl); break;
-    case MUL: ans = Mul(calcValue,displayValueDbl); break;
-    case POW: ans = Pow(calcValue,displayValueDbl); break;
-    case ROOT: ans = Root(calcValue,displayValueDbl); return ; break;
+    case ADD:
+        try {
+            ans = Add(calcValue,displayValueDbl);
+        } catch (std::exception ex) {
+            resCode = ERR_OVERFLOW;
+        }
+        break;
+    case SUB:
+        try {
+            ans = Sub(calcValue,displayValueDbl);
+        } catch (std::exception ex){
+            resCode = ERR_OVERFLOW;
+        }
+        break;
+    case DIV:
+        try {
+            ans = Div(calcValue,displayValueDbl);
+        } catch (std::invalid_argument ex_invarg){
+            resCode = ERR_ZERO_DIV;
+        } catch (std::out_of_range ex_overflow){
+            resCode = ERR_OVERFLOW;
+        }
+        break;
+    case MUL:
+        try {
+            ans = Mul(calcValue,displayValueDbl);
+        } catch (std::exception ex){
+            resCode = ERR_OVERFLOW;
+        }
+        break;
+    case POW:
+        try {
+            ans = Pow(calcValue,displayValueDbl);
+        } catch (std::exception ex){
+            resCode = ERR_OVERFLOW;
+        }
+        break;
+    case ROOT:
+        try {
+            ans = Root(calcValue,displayValueDbl);
+        } catch (std::exception ex){
+            resCode = ERR_INV_INPUT;
+        }
+        break;
     }
 
-    ui->lineEdit_Display->setText(QString::number(ans, 'g', 16));
+    if(resCode != OK)
+    {
+        HandleErrorState(ui, resCode);
+        return;
+    }
+
+    ui->lineEdit_Displayy->setText(QString::number(ans, 'g', 16));
     AppendLastOperandToPreviewLabel(ui, displayValue);
 
     clearDisplayOnNextDigitPress = true;
@@ -270,12 +375,25 @@ void MainWindow::EqualButtonPressed()
 
 void MainWindow::ClearButtonPressed()
 {
+    if(areButtonsLockedAfterError)
+    {
+        SetOperationButtonsStateAfterError(ui, true);
+    }
+
     ui->label_preview->clear();
-    ui->lineEdit_Display->setText("0");
+    ui->lineEdit_Displayy->setText("0");
 }
 
-void MainWindow::on_btn_digit1_clicked()
+void MainWindow::CommaButtonPressed()
 {
+    QString displayValue = ui->lineEdit_Displayy->text();
+    // the comma is already used
+    if(displayValue.contains("."))
+    {
+        return;
+    }
 
+    ui->lineEdit_Displayy->setText(displayValue + ".");
 }
+
 

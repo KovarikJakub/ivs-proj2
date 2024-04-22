@@ -19,11 +19,11 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_btn_digit1_clicked();
     void DigitPressed();
     void BinaryOperationPressed();
     void UnaryOperationPressed();
 
+    void CommaButtonPressed();
     void EqualButtonPressed();
     void ClearButtonPressed();
 
