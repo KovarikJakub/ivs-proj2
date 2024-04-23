@@ -1,0 +1,21 @@
+Profiling - Shrnuti
+-------------------
+
+Na profiling jsme pouzili nastroj grpof
+
+Prilozeny jsou dva soubory vystup.txt a vystup50mil.txt
+-vystup.txt  
+    obsahuje shrunti z profilovani se vstupy o velikosti 1, 10^3 a 10^6 (podle zadani)
+    gprof nebyl vsak schopen namerit spolehlive hodnoty kvuli kratke dobe behu programu,
+    proto prikladame soubor
+- vystup50mil.txt
+    ktery obshauje vystup z profilovani se vstupy o veliksotu 50x10^6.
+
+
+Co by se dalo vylepsit:
+-----------------------
+    Program travi nejvice casu ve funkci Add(x, y). Funkce sama osobe by se dala zrychlit kdyby byla 'inline',
+    snizila by se tim prodleva zpusobena volanim funkce.
+    Dale by se dali pouzit nejake chytre manipulace s bity pro rychlejsi vypocet
+    ci aproximaci odchylky. Program by se take mohl paralelizovat
+    
