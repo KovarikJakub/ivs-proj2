@@ -2,6 +2,15 @@
 #include <vector>
 #include <limits>
 #include "math_lib.h"
+/**
+ * @file stddev.cpp
+ * @author David Švancer
+ * @author Vít Vaňatka
+ * @author Jakub Kovařík
+ *
+ * @brief Program to calculate the standard deviation of a stream of data
+ */
+
 
 /**
  * @class DeviationDataStream
