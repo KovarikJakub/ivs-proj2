@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="windowIcon">
+   <iconset theme="calc-ico"/>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
@@ -299,7 +302,7 @@
       </widget>
      </item>
      <item row="0" column="0">
-      <widget class="QPushButton" name="btn_man">
+      <widget class="QPushButton" name="btn_help">
        <property name="minimumSize">
         <size>
          <width>0</width>
@@ -307,7 +310,7 @@
         </size>
        </property>
        <property name="text">
-        <string>Man</string>
+        <string>Help</string>
        </property>
       </widget>
      </item>
@@ -387,7 +390,7 @@
     </property>
     <property name="font">
      <font>
-      <pointsize>36</pointsize>
+      <pointsize>18</pointsize>
       <bold>false</bold>
      </font>
     </property>

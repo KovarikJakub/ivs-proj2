@@ -2,6 +2,7 @@
 #include "./ui_mainwindow.h"
 #include <QtMath>
 #include "../lib/math_lib.h"
+#include <QtWidgets/QMessageBox>
 
 enum Operation
 {
@@ -70,6 +71,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     // clear
     connect(ui->btn_clear, SIGNAL(released()), this, SLOT(ClearButtonPressed()));
+
+    // help
+    connect(ui->btn_help, SIGNAL(released()), this, SLOT(HelpButtonPressed()));
 
 }
 
@@ -352,7 +356,7 @@ void MainWindow::EqualButtonPressed()
         break;
     case ROOT:
         try {
-            ans = Root(calcValue,displayValueDbl);
+            ans = Root(displayValueDbl,calcValue);
         } catch (std::exception ex){
             resCode = ERR_INV_INPUT;
         }
@@ -396,4 +400,37 @@ void MainWindow::CommaButtonPressed()
     ui->lineEdit_Displayy->setText(displayValue + ".");
 }
 
+void MainWindow::HelpButtonPressed()
+{
+    QMessageBox::information(this, tr("Help"), R"(
+1. Basic Arithmetic Operations:
+   - Addition: Simply type the numbers you want to add and press the "+" button.
+   - Subtraction: Type the numbers you want to subtract and press the "-" button.
+   - Multiplication: Enter the numbers you want to multiply and press the "x" button.
+   - Division: Type the dividend, followed by the division sign "/", and then the divisor.
+
+2. Power Function (pow):
+   - To calculate the power of a number, type the base followed by the "^" symbol and then the exponent. For example, to calculate 2 raised to the power of 3, type "2 ^ 3" and press "=".
+
+3. Root Function:
+   - To calculate the square root or any other root of a number,type the root base, followed by root symbol (√), followed by the number. For example, to find the square root of 25, type "2√25" and press "=".
+
+4. Absolute Value (abs):
+   - To find the absolute value of a number, simply type the number and press the "abs" button. For example, to find the absolute value of -5, type "-5" and press "abs".
+
+5. Factorial Function (fact):
+   - To calculate the factorial of a number, type the number followed by the "!" symbol. For example, to calculate the factorial of 5, type "5!" and press "=".
+
+6. Result Display:
+   - After entering the expression, press the "=" button to see the result displayed on the screen.
+
+7. Clearing the Screen:
+   - To clear the current input or result, press the "C" button.
+
+8. Decimal Points:
+   - Use the decimal point (.) button to input decimal numbers for calculations.
+)");
+
+
+}
 

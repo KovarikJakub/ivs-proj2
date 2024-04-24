@@ -26,6 +26,7 @@ private slots:
     void CommaButtonPressed();
     void EqualButtonPressed();
     void ClearButtonPressed();
+    void HelpButtonPressed();
 
 private:
     Ui::MainWindow *ui;
