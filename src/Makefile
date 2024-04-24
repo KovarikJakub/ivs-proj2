@@ -59,13 +59,15 @@ qtest_download: remove_tests
 
 QT_libs:
 #for REDHOT
-	sudo dnf install -y qt-devel
-	sudo dnf install qt5-qtbase-devel
+#	sudo dnf install -y qt-devel
+#	sudo dnf install qt5-qtbase-devel
   
 #for Ubuntu
-#	sudo apt update
 #	sudo apt install -y qtbase5-dev
-
+	sudo apt update
+	sudo apt install -y qtcreator qtbase5-dev qt5-qmake cmake
+#	sudo apt-get install qt5-default
+#	sudo apt install -y qtbase5-dev
 #	sudo apt-get install qtbase5-dev qt5-default  
 #	sudo apt-get install qtbase6-dev qt6-default
 
