@@ -18,7 +18,7 @@ PROFILING_SRCDIR = $(SRCDIR)/Profiling
 all: install build_calculator   
 
 run:
-	cd $(CALCULATOR_SRCDIR) && ./$(EXECUTABLE)
+	cd $(CALCULATOR_SRCDIR)/$(BUILDDIR) && ./$(EXECUTABLE)
 
 test:
 	cd $(TEST_SRCDIR)/$(BUILDDIR) && ctest
