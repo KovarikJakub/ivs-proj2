@@ -30,9 +30,10 @@ profile: remove_profiling
 
 
 doc: Doxyfile
-	rm -rf ../doc
-	mkdir ../doc
-	doxygen  $(DOXYFILE)
+	rm -rf ../../doc
+	mkdir ../../doc
+	doxygen $(DOXYFILE)
+
 
 
 clean: remove_tests remove_profiling remove_calculator
