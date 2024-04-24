@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 
+
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -16,6 +17,16 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+private slots:
+    void DigitPressed();
+    void BinaryOperationPressed();
+    void UnaryOperationPressed();
+
+    void CommaButtonPressed();
+    void EqualButtonPressed();
+    void ClearButtonPressed();
+    void HelpButtonPressed();
 
 private:
     Ui::MainWindow *ui;
